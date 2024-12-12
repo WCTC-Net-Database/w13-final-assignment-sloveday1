@@ -61,7 +61,7 @@ namespace ConsoleRpgEntities.Migrations
 
                     b.ToTable("Abilities", (string)null);
 
-                    b.HasDiscriminator<string>("AbilityType").HasValue("Ability");
+                   // b.HasDiscriminator<string>("AbilityType").HasValue("Ability");
                 });
 
             modelBuilder.Entity("ConsoleRpgEntities.Models.Characters.Monsters.Monster", b =>

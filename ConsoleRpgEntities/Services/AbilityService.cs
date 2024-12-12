@@ -20,6 +20,8 @@ namespace ConsoleRpgEntities.Services
             {
                 // Shove ability logic
                 _outputService.WriteLine($"{user.Name} shoves {target.Name} back {shoveAbility.Distance} feet, dealing {shoveAbility.Damage} damage!");
+            }else{
+                _outputService.WriteLine($"{user.Name} uses {ability.Name} on {target.Name}!");
             }
         }
     }

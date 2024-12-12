@@ -2,7 +2,7 @@
 
 namespace ConsoleRpgEntities.Models.Abilities.PlayerAbilities
 {
-    public abstract class Ability : IAbility
+    public class Ability : IAbility
     {
         public int Id { get; set; }
         public string Name { get; set; }

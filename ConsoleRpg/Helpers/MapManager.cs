@@ -134,4 +134,101 @@ public class MapManager
             PlaceRoom(room.West, row, col - 2);
         }
     }
+
+    internal void ViewRoom()
+    {
+        if (_currentRoom != null)
+        {
+            _outputManager.AddLogEntry("Room:");
+            _outputManager.AddLogEntry($"Name: {_currentRoom.Name}");
+            _outputManager.AddLogEntry($"Description: {_currentRoom.Description}");
+            if (_currentRoom.Players.Count > 0)
+            {
+                foreach (var player in _currentRoom.Players)
+            {
+                _outputManager.AddLogEntry($"Player: {player.Name}");
+            }
+            } 
+            else
+            {
+                _outputManager.AddLogEntry("No players in the room.");
+            }
+        }
+    }
+
+    internal void MoveToNextRoom()
+    {
+        if (_currentRoom != null)
+        {
+            var direction = _outputManager.GetUserInput("Enter the direction (n, s, e, w):");
+
+            switch (direction.ToLower())
+            {
+                case "n":
+                    if (_currentRoom.North != null)
+                    {
+                        UpdateCurrentRoom(_currentRoom.North.Id);
+                        _outputManager.AddLogEntry("Moved to the North.");
+                        DisplayMap();
+                    }
+                    else
+                    {
+                        _outputManager.AddLogEntry("No room to the North.");
+                    }
+                    break;
+                case "s":
+                    if (_currentRoom.South != null)
+                    {
+                        UpdateCurrentRoom(_currentRoom.South.Id);
+                        _outputManager.AddLogEntry("Moved to the South.");
+                        DisplayMap();
+                    }
+                    else
+                    {
+                        _outputManager.AddLogEntry("No room to the South.");
+                    }
+                    break;
+                case "e":
+                    if (_currentRoom.East != null)
+                    {
+                        UpdateCurrentRoom(_currentRoom.East.Id);
+                        _outputManager.AddLogEntry("Moved to the East.");
+                        DisplayMap();
+                    }
+                    else
+                    {
+                        _outputManager.AddLogEntry("No room to the East.");
+                    }
+                    break;
+                case "w":
+                    if (_currentRoom.West != null)
+                    {
+                        UpdateCurrentRoom(_currentRoom.West.Id);
+                        _outputManager.AddLogEntry("Moved to the West.");
+                        DisplayMap();
+                    }
+                    else
+                    {
+                        _outputManager.AddLogEntry("No room to the West.");
+                    }
+                    break;
+                default:
+                    _outputManager.AddLogEntry("Invalid direction.");
+                    break;
+            }
+        }
+    }
+
+    internal void AddRoom(string roomName, string roomDescription)
+    {
+        var newRoom = new Room
+        {
+            Name = roomName,
+            Description = roomDescription
+        };
+
+        _context.Rooms.Add(newRoom);
+        _context.SaveChanges();
+        _outputManager.AddLogEntry($"Added room: {newRoom.Name}");
+    }
 }
